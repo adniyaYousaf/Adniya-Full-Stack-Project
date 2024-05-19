@@ -1,0 +1,54 @@
+{
+	"name": "video-recommendations",
+	"version": "1.0.0",
+	"description": "Video Recommendations",
+	"private": true,
+	"scripts": {
+		"build": "npm --workspace client run build",
+		"dev": "concurrently --kill-others \"npm:dev:*\"",
+		"dev:client": "cross-env PORT=3000 npm --workspace client run dev",
+		"dev:server": "cross-env LOG_LEVEL=debug PORT=3100 npm --workspace server run dev",
+		"start": "npm --workspace server start",
+		"test": "npm  --workspace server --workspace client test",
+		"prettier": "prettier --write .",
+		"test:client": "npm --workspace client test",
+		"test:server": "npm --workspace server test",
+		"test:e2e": "npm --workspace e2e test",
+		"test:e2e:ui": "npm --workspace e2e run test:ui",
+		"test:e2e:headed": "npm --workspace e2e run test:headed"
+	},
+	"author": "Code Your Future <mail@codeyourfuture.io>",
+	"license": "ISC",
+	"devDependencies": {
+		"@codeyourfuture/eslint-config-standard": "^4.0.3",
+		"concurrently": "^8.2.2",
+		"cross-env": "^7.0.3",
+		"eslint": "^8.57.0",
+		"eslint-config-prettier": "^9.1.0",
+		"eslint-plugin-jest": "^28.2.0",
+		"eslint-plugin-jest-dom": "^5.2.0",
+		"eslint-plugin-jsx-a11y": "^6.8.0",
+		"eslint-plugin-n": "^17.2.1",
+		"eslint-plugin-react": "^7.34.1",
+		"eslint-plugin-react-hooks": "^4.6.0",
+		"eslint-plugin-react-refresh": "^0.4.6",
+		"eslint-plugin-testing-library": "^6.2.2",
+		"eslint-plugin-vitest": "^0.5.3",
+		"prettier": "^3.2.5"
+	},
+	"workspaces": [
+		"client",
+		"server",
+		"e2e"
+	],
+	"engines": {
+		"node": "^20.6",
+		"npm": ">=10"
+	},
+	"dependencies": {
+		"react-hook-form": "^7.51.3",
+		"react-icons": "^5.2.0",
+		"sass": "^1.75.0",
+		"serverless-http": "^3.2.0"
+	}
+}

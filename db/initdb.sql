@@ -8,13 +8,15 @@ CREATE TABLE videos (
     addedDate  date   
 );
 
--- INSERT INTO
---     videos (title, src)
--- VALUES
---     (
---         'Never Gonna Give You Up',
---         'https://www.youtube.com/embed/dQw4w9WgXcQ?si=sdvqEritjOTwN2Af'
---     );
+INSERT INTO
+    videos (title, src,rating, addedDate)
+VALUES
+    (
+        'Never Gonna Give You Up',
+        'https://www.youtube.com/embed/dQw4w9WgXcQ?si=sdvqEritjOTwN2Af',
+        '1',
+        '2019-07-05'
+    );
 
 -- INSERT INTO
 --     videos (title, src)

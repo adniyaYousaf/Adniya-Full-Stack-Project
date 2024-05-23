@@ -2,6 +2,7 @@ import { Router } from "express";
 import db from "./db.js";
 const router = Router();
 import getVideoId from 'get-video-id';
+// import { errorMonitor } from "pg-pool";
 
 router.get("/videos", async (_, res) => {
 	const result = await db.query("SELECT * FROM videos order by id");
@@ -59,12 +60,14 @@ router.post("/videos/:id/:vote", async (req, res) => {
 	const id = parseInt(req.params.id);
 
 	if (vote === "up") {
-		await db.query("UPDATE videos SET rating = rating + 1 WHERE id= $1", [id]);
+		const result = await db.query("UPDATE videos SET rating = rating + 1 WHERE id= $1", [id]);
+		result ? res.status(200).send({ success: true, message: 'update successful' }) : res.status(400).send({ success: false, error: 'update is not successful' });
 	} else {
-		await db.query("UPDATE videos SET rating = rating- 1 WHERE id= $1", [id]);
+		const result = await db.query("UPDATE videos SET rating = rating- 1 WHERE id= $1", [id]);
+		result ? res.status(200).send({ success: true, message: 'update successful' }) : res.status(400).send({ succuss: false, error: 'update is not successful' })
 	}
 
-	res.send('update successful');
+
 })
 
 router.get("/videos/:sort", async (req, res) => {
@@ -75,7 +78,8 @@ router.get("/videos/:sort", async (req, res) => {
 	} else {
 		result = await db.query("SELECT * FROM videos ORDER BY rating DESC");
 	}
-	res.status(200).send(result.rows);
+	result ? res.status(200).send(result.rows) : res.status(400).send({ success: false, error: 'Failed to delete video.' });
+
 })
 
 

@@ -20,7 +20,7 @@ const pool =
 	databaseUrl &&
 	new Pool({
 		connectionString: databaseUrl,
-		connectionTimeoutMillis: 5000,
+		connectionTimeoutMillis: 8000,
 		ssl:
 			databaseUrl.includes("localhost") || databaseUrl.includes("flycast")
 				? false

@@ -30,4 +30,4 @@ jobs:
           aws-secret-access-key: ${{ secrets.AWS_SECRET_ACCESS_KEY }}
           aws-region: eu-west-2
       - name: copy to S3
-        run: aws s3 sync ./static/. s3://fullstack-project-123
+        run: aws s3 sync ./server/static/. s3://fullstack-project-123

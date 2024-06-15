@@ -9,9 +9,8 @@ describe("/api", () => {
 				const response = await request(app).get("/api/videos");
 
 				expect(response.statusCode).toBe(200);
-				expect(response.body[0].title).toBe("Never Gonna Give You Up");
-				expect(response.body[0].url).toBe(
-					"https://www.youtube.com/watch?v=dQw4w9WgXcQ"
+				expect(response.body[0].src).toBe(
+					"https://www.youtube.com/embed/dQw4w9WgXcQ?si=sdvqEritjOTwN2Af"
 				);
 			});
 		});

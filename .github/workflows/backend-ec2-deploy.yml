@@ -1,0 +1,42 @@
+name: Deploy to EC2
+on:
+  push: 
+    branches: 
+        - main
+
+jobs: 
+  deploy: 
+     run-on: ubuntu@latest
+    defaults:
+      run: 
+        working-directory: server
+
+    steps:
+      - name: Checkout repository
+        uses: actions/checkout@v2
+
+      -name: install dependencies
+        uses: npm install
+
+      - name: build website
+        run: npm run build
+
+      - name: Install AWS CLI
+        run: sudo apt-get install -y awscli
+
+      - name: set AWS credentials
+        uses: aws-actions/configure-aws-credentials@v1
+  
+      with:
+        host: ${{ secrets.HOST_DNS }}
+        username: ${{ secrets.USERNAME }}
+        key: ${{ secrets.EC2_SSH_KEY }}
+
+      - name: what folder am I in?
+        run: pwd
+
+      - name: what folders exist here?
+        run: ls -la
+
+      - name: copy to S3
+        run: aws ec2 sync ../server/static/. ec2://full-stack-project

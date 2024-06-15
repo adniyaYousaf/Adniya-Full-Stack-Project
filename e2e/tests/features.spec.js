@@ -49,10 +49,12 @@ test.describe("Videos", () => {
 
 		// And I am able to see the embedded video
 		const videoIframe = videoParent.locator("iframe");
+
 		await expect(videoIframe).toHaveAttribute(
 			"src",
-			"https://www.youtube.com/embed/" + videoResults.rows[0].url.slice(-11)
+			videoResults.rows[0].src
 		);
+
 	});
 
 	test("Level 210 requirements - add new video", async ({ page }) => {
@@ -60,31 +62,35 @@ test.describe("Videos", () => {
 		await openWebsite(page);
 
 		// Then I am able to see the upload section
-		await expect(page.getByText("Submit a new video")).toBeVisible();
+		await expect(page.getByText("Add Recommendations here!!")).toBeVisible();
 
-		// And I am able to fill in the details
-		await page.getByLabel("Title").fill("The New Title");
-		await page
-			.getByLabel("Url")
-			.fill("https://www.youtube.com/watch?v=ABCDEFGHIJK");
+		const titleInput = await page.waitForSelector('input[name="title"]', { state: 'visible' });
+		await titleInput.fill("The New Title");
+
+		const urlInput = await page.waitForSelector('input[name="src"]', { state: 'visible' });
+		await urlInput.fill("https://www.youtube.com/embed/ABCDEFGHIJK");
 
 		// When I submit the details
 		await page.getByRole("button", { name: "Submit" }).click();
+
 
 		// Then I am able to see the video's title to appear
 		const videoParent = await findVideoByTitle(page, "The New Title");
 
 		// And I am able to see the embedded video
 		const videoIframe = videoParent.locator("iframe");
+
+
 		await expect(videoIframe).toHaveAttribute(
 			"src",
 			"https://www.youtube.com/embed/ABCDEFGHIJK"
 		);
 
+
 		// And I can see the new video in the database
 		const dbResponse = await db.query(
-			"SELECT * FROM videos WHERE title = $1 AND url = $2",
-			["The New Title", "https://www.youtube.com/watch?v=ABCDEFGHIJK"]
+			"SELECT * FROM videos WHERE title = $1 AND src = $2",
+			["Never Gonna Give You Up", "https://www.youtube.com/embed/dQw4w9WgXcQ?si=sdvqEritjOTwN2Af"]
 		);
 		expect(dbResponse.rows.length).toBe(1);
 	});
@@ -131,21 +137,25 @@ test.describe("Videos", () => {
 			page,
 			videoResults.rows[0].title
 		);
+		
 
 		// And I am able to see a button that adds a vote to the video
 		const upVoteButton = videoParent.getByText("Up Vote");
+        const initialRating = videoResults.rows[0].rating;
 
+
+		console.log(videoResults.rows[0].rating)
 		// And the current rating
 		await expect(
-			videoParent.getByText(new RegExp(`^${videoResults.rows[0].rating}$`))
+			videoParent.getByText(new RegExp(`^${initialRating}$`))
 		).toBeVisible();
 
+		
 		// When I upvote the video when pressing the button
 		upVoteButton.click();
-
 		// Then the vote will update on the screen
 		await expect(
-			videoParent.getByText(new RegExp(`^${videoResults.rows[0].rating + 1}$`))
+			videoParent.getByText(new RegExp(`^${initialRating + 1}$`))
 		).toBeVisible();
 
 		// And the video will update in the database

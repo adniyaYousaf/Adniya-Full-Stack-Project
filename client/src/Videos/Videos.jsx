@@ -1,5 +1,5 @@
 import { FaThumbsDown, FaThumbsUp } from "react-icons/fa";
-import { FaHeart } from "react-icons/fa6";
+import { FaHeart } from "react-icons/fa";
 import "./videos.scss";
 
 const formatDate = (d) => {
@@ -23,13 +23,13 @@ const Videos = (props) => {
 						</p>
 					</div>
 					<div className="container_btns_thumb-box">
-						<FaThumbsUp
+						Up Vote<FaThumbsUp
 							className="container_btns_thumb-box_thumb"
 							onClick={() => props.update(video.id, "up")}
 						/>
 					</div>
 					<div className="container_btns_thumb-box">
-						<FaThumbsDown
+						Down Vote<FaThumbsDown
 							className="container_btns_thumb-box_thumb"
 							onClick={() => props.update(video.id, "down")}
 						/>
@@ -38,11 +38,11 @@ const Videos = (props) => {
 						className="container_btns_delbtn"
 						onClick={() => props.click(video.id)}
 					>
-						Delete
+						Remove video
 					</button>
 				</div>
 				<div className="container_title">
-					<p>{video.title}</p>
+					<p >{video.title}</p>
 					<p className="container_title_rating">
 						Rating {video.rating}
 						<span>

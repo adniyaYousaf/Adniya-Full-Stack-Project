@@ -51,7 +51,7 @@ router.delete("/videos/:id", async (req, res) => {
 	);
 
 	deletedVideo
-		? res.status(200).send({ success: "Deleted the video successfully" })
+		? res.status(200).send({ success: true })
 		: res.status(404).send({ error: "Id for the video does not exist" })
 })
 

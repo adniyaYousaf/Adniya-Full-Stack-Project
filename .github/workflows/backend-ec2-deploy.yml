@@ -19,7 +19,7 @@ jobs:
         run: npm install
 
       - name: Build website
-        run: npm --workspace client run build
+        run: npm --workspace server run build
 
       - name: Install AWS CLI
         run: sudo apt-get install -y awscli

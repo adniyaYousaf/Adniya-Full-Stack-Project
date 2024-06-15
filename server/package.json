@@ -5,10 +5,7 @@
 	"description": "Video Recommendations app - Backend",
 	"type": "module",
 	"main": "server.js",
-	"workspaces": [
-		"client",
-		"server"
-	],
+
 	"scripts": {
 		"dev": "node --watch server.js",
 		"test": "NODE_OPTIONS='--experimental-vm-modules' jest",

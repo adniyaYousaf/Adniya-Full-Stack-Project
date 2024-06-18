@@ -28,11 +28,5 @@ jobs:
           aws-secret-access-key: ${{ secrets.AWS_SECRET_ACCESS_KEY }}
           aws-region: eu-west-2
 
-      - name: What folder am I in?
-        run: pwd
-
-      - name: What folders exist here?
-        run: ls -la
-
       - name: Copy to EC2
-        run: aws ec2 sync ./static ec2://full-stack-project
+        run: aws s3 sync ../server/static/. s3://fullstack-project-123

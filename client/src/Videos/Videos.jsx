@@ -13,7 +13,7 @@ const Videos = (props) => {
 			<div key={index} className="container">
 				<iframe
 					src={video.src}
-					title="Video recommendations"
+					title="Video recommendation"
 					className="container_video"
 				></iframe>
 				<div className="container_btns">

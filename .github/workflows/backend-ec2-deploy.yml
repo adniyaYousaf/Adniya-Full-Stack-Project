@@ -1,13 +1,16 @@
 name: Deploy to EC2
 on:
-  push: 
-    branches: 
+  push:
+    branches:
       - main
 
-jobs: 
-  deploy: 
+jobs:
+  deploy:
     runs-on: ubuntu-latest
- 
+    defaults:
+      run:
+        working-directory: client
+
     steps:
       - name: Checkout repository
         uses: actions/checkout@v2
@@ -29,4 +32,4 @@ jobs:
           aws-region: eu-west-2
 
       - name: Copy to EC2
-        run: aws s3 sync ../server/static/. s3://fullstack-project-123
+        run: aws opsworks --region eu-west-2 create-instance --stack-id 935450cc-61e0-4b03-a3e0-160ac817d2bb --layer-ids 5c8c272a-f2d5-42e3-8245-5bf3927cb65b --hostname myinstance1 --instance-type t2.micro --os "Amazon Linux"

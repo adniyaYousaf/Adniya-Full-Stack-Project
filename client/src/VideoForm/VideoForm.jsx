@@ -9,7 +9,7 @@ const VideoForm = ({ handleSubmit }) => {
 				<input type="text" name="src" className="form__input" placeholder="Add video link here!!" required />
 			</label>
 			<button type="submit" className="form__btn">
-				Submit
+				Add a new video
 			</button>
 		</form>
 	);

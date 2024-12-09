@@ -69,7 +69,7 @@
     }
     &_time {
       position: absolute;
-      top: 0;
+      top: 0.5rem;
       left: 0;
     }
     &_thumb-box {
@@ -88,9 +88,31 @@
       }
       &:hover,
       &:active {
-		color: white;
+        color: white;
         background-color: #9d655a;
       }
     }
   }
+}
+
+@media (max-width: 500px) {
+  .container {
+    padding-left: 0;
+    font-size: 1em;
+    height: auto;
+
+     &_btns {
+     flex-wrap: wrap;
+     }
+  }
+
+  @media (max-width: 768px) {
+  .container_btns_thumb-box {
+    flex-direction: column; /* Adjust layout for better icon alignment */
+  }
+  
+  .container_btns_thumb-box p {
+    display: none; /* Hide the text */
+  }
+}
 }

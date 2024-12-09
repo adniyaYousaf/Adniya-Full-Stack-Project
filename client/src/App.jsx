@@ -76,20 +76,21 @@ const App = () => {
 
 	return (
 		<>
-			<h1>Video Recommendations</h1>
-			<div className="sort">
-				<button className="sort_btn">
-					<FaSortUp onClick={() => handleSort("asc")} />
-				</button>
-				<button className="sort_btn">
-					<FaSortDown onClick={() => handleSort("desc")} />
-				</button>
-			</div>
-			<Videos video={videos} update={handleUpdate} click={handleDelete} />
+			<section className="header">
+				<h1>Video Recommendations</h1>
+				<div className="sort">
+					<button className="sort_btn">
+						<span>Sort up by rating</span>	<FaSortUp onClick={() => handleSort("asc")} />
+					</button>
+					<button className="sort_btn">
+						<span>Sort down by rating</span><FaSortDown onClick={() => handleSort("desc")} />
+					</button>
+				</div></section>
 			<div className="form-box">
 				<VideoForm handleSubmit={handleSubmit} />
-				<div className="form-box_heading">Add Recommendations here!!</div>
 			</div>
+			<Videos video={videos} update={handleUpdate} click={handleDelete} />
+			
 		</>
 	);
 };

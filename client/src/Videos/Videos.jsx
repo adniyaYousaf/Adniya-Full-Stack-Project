@@ -1,6 +1,7 @@
 import { FaThumbsDown, FaThumbsUp } from "react-icons/fa";
 import { FaHeart } from "react-icons/fa";
 import "./videos.scss";
+import { useState } from "react";
 
 const formatDate = (d) => {
   let date = new Date(d);
@@ -8,6 +9,8 @@ const formatDate = (d) => {
 };
 
 const Videos = (props) => {
+  const [removeBtnText, setRemoveBtnText] = useState(false);
+
   const mapVideos = props.video.map((video, index) => {
     return (
       <div key={index} className="container">
@@ -24,21 +27,20 @@ const Videos = (props) => {
             className="container_btns_thumb-box"
             onClick={() => props.update(video.id, "up")}
           >
-            Up Vote
+          
             <FaThumbsUp className="container_btns_thumb-box_thumb" />
           </div>
           <div
             className="container_btns_thumb-box"
             onClick={() => props.update(video.id, "down")}
           >
-            Down Vote
             <FaThumbsDown className="container_btns_thumb-box_thumb" />
           </div>
           <button
             className="container_btns_delbtn"
             onClick={() => props.click(video.id)}
           >
-            Remove video
+            Delete
           </button>
         </div>
         <div className="container_title">
@@ -46,7 +48,7 @@ const Videos = (props) => {
           <p className="container_title_rating">
             Rating {video.rating}
             <span>
-              <FaHeart />
+              <FaHeart color="red" />
             </span>
           </p>
         </div>

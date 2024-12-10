@@ -1,8 +1,6 @@
 import Videos from "./Videos/Videos";
 import { useState, useEffect } from "react";
 import VideoForm from "./VideoForm/VideoForm";
-import { FaSortDown } from "react-icons/fa6";
-import { FaSortUp } from "react-icons/fa";
 import "./App.scss";
 
 const App = () => {
@@ -79,11 +77,10 @@ const App = () => {
 			<section className="header">
 				<h1>Video Recommendations</h1>
 				<div className="sort">
-					<button className="sort_btn">
-						<span>Sort up by rating</span>	<FaSortUp onClick={() => handleSort("asc")} />
+					<button className="sort_btn" onClick={() => handleSort("asc")}>
+						Sort up by rating
 					</button>
-					<button className="sort_btn">
-						<span>Sort down by rating</span><FaSortDown onClick={() => handleSort("desc")} />
+					<button className="sort_btn" onClick={() => handleSort("desc")}>Sort down by rating
 					</button>
 				</div></section>
 			<div className="form-box">

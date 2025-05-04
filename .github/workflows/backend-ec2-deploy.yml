@@ -31,5 +31,5 @@ jobs:
           aws-secret-access-key: ${{ secrets.AWS_SECRET_ACCESS_KEY }}
           aws-region: eu-west-2
 
-      - name: Copy to EC2
-        run: aws ec2 run-instances --image-id ami-0b53285ea6c7a08a7 --instance-type t2.micro
+      - name: run backend 
+        run: npm run dev

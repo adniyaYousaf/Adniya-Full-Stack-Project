@@ -34,4 +34,4 @@ jobs:
         run: ls -la
 
       - name: copy to S3
-        run: aws s3 sync ../server/static/. s3://fullstack-project-123
+        run: aws s3 sync ../server/static/. s3://video-recommendation-project

@@ -15,14 +15,14 @@ jobs:
       - name: Checkout repository
         uses: actions/checkout@v2
 
-      # - name: Install dependencies
-      #   run: npm install
+      - name: Install dependencies
+        run: npm install
 
-      # - name: Build website
-      #   run: npm run build
+      - name: Build website
+        run: npm run build
 
-      # - name: Install AWS CLI
-      #   run: sudo apt-get install -y awscli
+      - name: Install AWS CLI
+        run: sudo apt-get install -y awscli
 
       - name: Set AWS credentials
         uses: aws-actions/configure-aws-credentials@v1

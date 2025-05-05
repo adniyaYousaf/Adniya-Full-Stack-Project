@@ -23,7 +23,6 @@ jobs:
             then
             git clone https://github.com/adniyaYousaf/Adniya-Full-Stack-Project.git
             fi
-            git pull origin main
             cd Adniya-Full-Stack-Project
             cd client
             npm install 

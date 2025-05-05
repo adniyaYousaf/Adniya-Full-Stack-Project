@@ -31,4 +31,5 @@ jobs:
             npm install 
             npm run build 
             cd ../server
-            npm run dev
+            sudo npm install -g pm2
+            pm2 start npm --name "adniya-server" -- run dev

@@ -25,7 +25,8 @@ jobs:
             fi
             git pull origin main
             cd Adniya-Full-Stack-Project
-            cd client npm install 
+            cd client
+            npm install 
             npm run build 
             cd ../server
             npm run dev

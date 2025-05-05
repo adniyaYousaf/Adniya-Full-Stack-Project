@@ -19,10 +19,13 @@ jobs:
           key: ${{ secrets.EC2_SSH_KEY }}
           script: |
             cd /home/ubuntu
+        
             if [ ! -d "Adniya-Full-Stack-Project" ];
             then
             git clone https://github.com/adniyaYousaf/Adniya-Full-Stack-Project.git
             fi
+            sudo apt update
+            sudo apt install -y nodejs npm
             cd Adniya-Full-Stack-Project
             cd client
             npm install 

@@ -22,7 +22,7 @@ jobs:
       - name: upload artifacts
         uses: actions/upload-artifact@v2
         with:
-          name: dist files
+          name: add dist files
           path: dist
   deploy:
     needs: build

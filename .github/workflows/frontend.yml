@@ -54,7 +54,7 @@ jobs:
       - name: download artifacts
         uses: actions/download-artifact@v4
         with:
-          name: dist files
+          name: dist
       - name: what does dist folders have?
         run: ls
       - name: copy to S3

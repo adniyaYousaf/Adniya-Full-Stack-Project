@@ -10,6 +10,8 @@ jobs:
       id-token: write
       contents: read
     runs-on: ubuntu-latest
+    env:
+      DATABASE_URL: DATABASE_URL
     steps:
       - name: Checkout repository
         uses: actions/checkout@v2

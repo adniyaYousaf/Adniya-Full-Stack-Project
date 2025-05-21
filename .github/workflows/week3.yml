@@ -1,4 +1,4 @@
-name: Deploy to EC2
+name: week 3
 
 on:
   push:
@@ -19,17 +19,17 @@ jobs:
           username: ubuntu
           key: ${{ secrets.EC2_SSH_KEY }}
           script: |
-            # Ensure Docker and Docker Compose are installed
+            # Ensure Docker and Git are installed
             sudo apt update
             sudo apt install -y docker.io git curl
 
-            # Install Docker Compose v2
-            DOCKER_CONFIG=${DOCKER_CONFIG:-$HOME/.docker}
-            mkdir -p $DOCKER_CONFIG/cli-plugins
-            curl -SL https://github.com/docker/compose/releases/download/v2.27.0/docker-compose-linux-x86_64 -o $DOCKER_CONFIG/cli-plugins/docker-compose
-            chmod +x $DOCKER_CONFIG/cli-plugins/docker-compose
+            # Install Docker Compose v2 under root's docker CLI plugins
+            sudo mkdir -p /root/.docker/cli-plugins
+            sudo curl -SL https://github.com/docker/compose/releases/download/v2.27.0/docker-compose-linux-x86_64 \
+            -o /root/.docker/cli-plugins/docker-compose
+            sudo chmod +x /root/.docker/cli-plugins/docker-compose
 
-            # Start Docker if not already running
+            # Start Docker
             sudo systemctl start docker
             sudo systemctl enable docker
 
@@ -38,12 +38,13 @@ jobs:
 
             # Clone or update the project
             if [ ! -d "Adniya-Full-Stack-Project" ]; then
-              git clone https://github.com/adniyaYousaf/Adniya-Full-Stack-Project.git
+            git clone https://github.com/adniyaYousaf/Adniya-Full-Stack-Project.git
             fi
 
             cd Adniya-Full-Stack-Project
-            git pull origin main
+            git pull --ff-only origin main
+
+            # Run Docker Compose
             sudo docker compose down
             sudo docker compose pull
             sudo docker compose up -d --build
-            sudo docker compose up

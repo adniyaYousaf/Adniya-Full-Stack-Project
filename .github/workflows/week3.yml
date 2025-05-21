@@ -1,0 +1,45 @@
+name: Deploy to EC2
+
+on:
+  push:
+    branches:
+      - main
+
+jobs:
+  deploy:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout code
+        uses: actions/checkout@v2
+
+      - name: Deploy to EC2 via SSH
+        uses: appleboy/ssh-action@v1.0.0
+        with:
+          host: ${{ secrets.EC2_HOST }}
+          username: ubuntu
+          key: ${{ secrets.EC2_SSH_KEY }}
+          script: |
+            # Ensure Docker and Docker Compose are installed
+            sudo apt update
+            sudo apt install -y docker.io docker-compose git
+
+            # Start Docker if not already running
+            sudo systemctl start docker
+            sudo systemctl enable docker
+
+            # Navigate to home directory
+            cd /home/ubuntu
+
+            # Clone or update the project
+            if [ ! -d "Adniya-Full-Stack-Project" ]; then
+              git clone https://github.com/adniyaYousaf/Adniya-Full-Stack-Project.git
+            fi
+
+            cd Adniya-Full-Stack-Project
+            git pull origin main
+
+            # Run docker-compose in detached mode
+            sudo docker compose down
+            sudo docker compose pull
+            sudo docker compose up -d --build
+            sudo docker compose up

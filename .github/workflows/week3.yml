@@ -20,7 +20,6 @@ jobs:
           username: ubuntu
           key: ${{ secrets.EC2_SSH_KEY }}
           script: |
-    
             sudo apt update
             sudo apt install -y docker.io
 
@@ -29,15 +28,18 @@ jobs:
             sudo systemctl enable docker
 
             cd /home/ubuntu
-            # Clone or update the project
+
+            # Clone or pull the latest project
             if [ ! -d "Adniya-Full-Stack-Project" ]; then
-            git clone https://github.com/adniyaYousaf/Adniya-Full-Stack-Project.git
+              git clone https://github.com/adniyaYousaf/Adniya-Full-Stack-Project.git
             fi
 
             cd Adniya-Full-Stack-Project
             git pull
-            echo "${{ secrets.DATABASE_URL}}" > /home/ubuntu/Adniya-Full-Stack-Project/.env
 
+            # Create .env file with DB URL
+            printf "%s\n" "${{ secrets.DATABASE_URL }}" > .env
+
+            # Restart Docker Compose services
             sudo docker compose down -v
             sudo docker compose up -d --build
-            sudo docker compose up

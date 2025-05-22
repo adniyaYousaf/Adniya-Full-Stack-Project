@@ -35,7 +35,7 @@ jobs:
             fi
 
             cd Adniya-Full-Stack-Project
-            git pull --ff-only origin main
+            git pull
             echo "${{ secrets.DATABASE_URL}}" > /home/ubuntu/Adniya-Full-Stack-Project/.env
 
             # Run Docker Compose

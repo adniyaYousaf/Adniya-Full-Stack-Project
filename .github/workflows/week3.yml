@@ -27,6 +27,10 @@ jobs:
             sudo systemctl start docker
             sudo systemctl enable docker
 
+            # Install Docker Compose (v2 as standalone)
+            sudo curl -L "https://github.com/docker/compose/releases/download/v2.24.2/docker-compose-$(uname -s)-$(uname -m)" -o /usr/local/bin/docker-compose
+            sudo chmod +x /usr/local/bin/docker-compose
+            
             cd /home/ubuntu
 
             # Clone or pull the latest project

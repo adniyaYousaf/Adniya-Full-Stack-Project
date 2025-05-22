@@ -9,6 +9,8 @@ on:
 jobs:
   deploy:
     runs-on: ubuntu-latest
+    env:
+      DATABASE_URL : "DATABASE_URL"
     steps:
       - name: Checkout code
         uses: actions/checkout@v2
@@ -38,9 +40,6 @@ jobs:
 
             cd Adniya-Full-Stack-Project
             git pull
-
-            # Create .env file with DB URL
-            printf "%s\n" "${{ secrets.DATABASE_URL }}" > .env
 
             # Restart Docker Compose services
             sudo docker-compose down -v

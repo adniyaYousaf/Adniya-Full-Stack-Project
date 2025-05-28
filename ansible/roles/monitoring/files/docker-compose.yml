@@ -1,11 +1,5 @@
+version: '3.8'
 services:
-  server:
-    container_name: video-backend
-    build: .
-    env_file:
-      - .env
-    ports:
-      - "3000:3000"
 
   prometheus:
     image: prom/prometheus
@@ -13,6 +7,14 @@ services:
       - ./prometheus/prometheus.yml:/etc/prometheus/prometheus.yml
     ports:
       - "9090:9090"
+    restart: always
+
+  grafana:
+    image: grafana/grafana
+    ports:
+      - "3001:3000"
+    volumes:
+      - ./grafana:/etc/grafana
     restart: always
 
   node-exporter:
@@ -34,16 +36,8 @@ services:
 
   postgres-exporter:
     image: prometheuscommunity/postgres-exporter
-    environment:
-      DATA_SOURCE_NAME: "postgresql://{{ username }}:{{ password }}@{{ host }}:{{ port }}/postgres?sslmode=disable"
     ports:
       - "9187:9187"
-    restart: always
-
-  grafana:
-    image: grafana/grafana
-    ports:
-      - "3001:3000"
-    volumes:
-      - ./grafana:/etc/grafana
+    environment:
+      DATA_SOURCE_NAME: "postgresql://{{ username }}:{{ password }}@{{ host }}:{{ port }}/postgres?sslmode=disable"
     restart: always

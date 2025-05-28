@@ -1,0 +1,44 @@
+
+- name: Install docker-compose
+  shell: |
+    curl -L "https://github.com/docker/compose/releases/download/v2.24.2/docker-compose-$(uname -s)-$(uname -m)" -o /usr/local/bin/docker-compose
+    chmod +x /usr/local/bin/docker-compose
+
+- name: Create project directories
+  file:
+    path: "/home/ubuntu/Adniya-Full-Stack-Project/{{ item }}"
+    state: directory
+    owner: ubuntu
+    group: ubuntu
+    mode: 755
+  loop:
+  - prometheus
+  - grafana/provisioning/datasources
+
+- name: Copy docker-compose.yml
+  copy:
+    src: docker-compose.yml
+    dest: /home/ubuntu/Adniya-Full-Stack-Project/docker-compose.yml
+    owner: ubuntu
+    mode: 644
+
+- name: Copy prometheus config
+  copy:
+    src: prometheus.yml
+    dest: /home/ubuntu/Adniya-Full-Stack-Project/prometheus/prometheus.yml
+    owner: ubuntu
+    mode: 644
+
+- name: Copy grafana datasource config
+  copy:
+    src: prometheus-datasource.yaml
+    dest: /home/ubuntu/Adniya-Full-Stack-Project/grafana/provisioning/datasources/prometheus.yaml
+    owner: ubuntu
+    mode: 644
+
+- name: Run docker-compose up
+  shell: |
+    cd /home/ubuntu/Adniya-Full-Stack-Project
+    docker-compose up -d --build
+  args:
+    chdir: /home/ubuntu/Adniya-Full-Stack-Project
